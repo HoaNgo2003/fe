@@ -20,13 +20,13 @@ const Header = () => {
         totalMoney += item.totalMoney
     })
 
-    const confirm = async (id: string) => {
-        const confirm = window.confirm("Bạn có muốn xóa không?")
-        if (confirm) {
-            await dispatch(removeCart(id));
-            message.success("Xóa sản phẩm thành công");
-        }
-    }
+    // const confirm = async (id: string) => {
+    //     const confirm = window.confirm("Bạn có muốn xóa không?")
+    //     if (confirm) {
+    //         await dispatch(removeCart(id));
+    //         message.success("Xóa sản phẩm thành công");
+    //     }
+    // }
 
     const logout = () => {
         localStorage.removeItem("myCat");
@@ -248,13 +248,14 @@ const Header = () => {
 
                                                             <div className="media align-items-center">
                                                                 <div className="">
-                                                                    <img className="rounded" src={product?.images} alt="" />
+                                                                    {/* <img className="rounded" src={product?.images} alt="" /> */}
+                                                                    {<img className="rounded" src={product?.images[0]}></img>}
                                                                 </div>
                                                                 <div className="media-body ml-3">
                                                                     <h6 className="mb-0 ">{product?.name}</h6>
                                                                     <p className="mb-0">{product?.price}đ</p>
                                                                 </div>
-                                                                <div className="float-right font-size-24 text-danger" onClick={() => confirm(item._id)}><i className="ri-close-fill"></i></div>
+                                                                {/* <div className="float-right font-size-24 text-danger" onClick={() => confirm(item._id)}><i className="ri-close-fill"></i></div> */}
                                                             </div>
                                                         </div>
                                                     </Link>
