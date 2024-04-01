@@ -10,7 +10,6 @@ import { message } from "antd";
 const Header = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const categories = useAppSelector((state) => state.Category.categories);
     const carts = useAppSelector((state) => state.Cart.carts);
 
     const user = JSON.parse(localStorage.getItem("user")!)
