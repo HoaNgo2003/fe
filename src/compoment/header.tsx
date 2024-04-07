@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 import { getAllCategory } from "../redux/Reducer/CategorySlice";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllCart, removeCart } from "../redux/Reducer/CartSlice";
+import { getAllCart } from "../redux/Reducer/CartSlice";
 import { getAllProduct } from "../redux/Reducer/ProductSlice";
 import IProduct from "../interface/product";
 import { message } from "antd";
@@ -39,7 +39,7 @@ const Header = () => {
         // setIsLoading(true);
         dispatch(getAllCategory())
         if (user) {
-            dispatch(getAllProduct())
+            dispatch(getAllProduct(""))
             dispatch(getAllCart(user._id))
         }
     }, [dispatch]);
@@ -49,7 +49,7 @@ const Header = () => {
         dispatch(getAllCategory())
         if (user) {
             dispatch(getAllCart(user._id))
-            dispatch(getAllProduct())
+            dispatch(getAllProduct(""))
         }
     }, []);
     const style1 ={
@@ -252,7 +252,7 @@ const Header = () => {
                                                                     {<img className="rounded" src={product?.images[0]}></img>}
                                                                 </div>
                                                                 <div className="media-body ml-3">
-                                                                    <h6 className="mb-0 ">{product?.name}</h6>
+                                                                    <h6 className="mb-0 ">{product?.nameProduct}</h6>
                                                                     <p className="mb-0">{product?.price}đ</p>
                                                                 </div>
                                                                 {/* <div className="float-right font-size-24 text-danger" onClick={() => confirm(item._id)}><i className="ri-close-fill"></i></div> */}

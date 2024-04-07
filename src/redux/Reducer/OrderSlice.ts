@@ -3,6 +3,7 @@ import axios from "axios";
 import IOrder from "../../interface/order";
 
 interface initialState {
+    order: any;
     orders: IOrder[];
     loading: boolean;
     error: string | undefined;
@@ -12,6 +13,7 @@ const initialState: initialState = {
     orders: [],
     loading: false,
     error: "",
+    order: undefined
 };
 
 export const getAllOrder = createAsyncThunk(
@@ -43,7 +45,9 @@ export const getOrder = createAsyncThunk(
 export const createOrder = createAsyncThunk(
     "orders/addOrders",
     async (order: IOrder) => {
-        const { data } = await axios.post<{ order: IOrder }>(
+        const { data } = await axios.post<{
+            _id: any; order: IOrder 
+}>(
             "http://localhost:8080/api/orders",
             order
         );
@@ -88,7 +92,7 @@ const orderSlice = createSlice({
                 state.loading = true;
             })
             .addCase(getOrder.fulfilled, (state, action) => {
-                state.order = action.payload;
+                state.orders = action.payload;
                 state.loading = false;
             })
             .addCase(getOrder.rejected, (state) => {

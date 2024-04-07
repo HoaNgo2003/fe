@@ -65,7 +65,7 @@ const productUpdate = () => {
         }));
     useEffect(() => {
         void dispatch(getAllCategory());
-        void dispatch(getAllProduct());
+        void dispatch(getAllProduct(""));
     }, [dispatch]);
 
     const { id } = useParams();
@@ -73,7 +73,7 @@ const productUpdate = () => {
     const [form] = Form.useForm();
     form.setFieldsValue({
         _id: product?._id,
-        name: product?.name,
+        name: product?.nameProduct,
         author: product?.author,
         price: product?.price,
         images: product?.images,

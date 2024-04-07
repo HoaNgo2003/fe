@@ -2,21 +2,17 @@ import {
     Space,
     Table,
     Popconfirm,
-    Image,
-    Button,
-    message,
-    Spin
+     
 } from 'antd';
 import {
     EditFilled,
     DeleteFilled,
-    PlusOutlined,
     EyeOutlined,
     SearchOutlined
 } from '@ant-design/icons';
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { Link  } from "react-router-dom";
+import { useDispatch  } from 'react-redux';
+import { useEffect  } from 'react';
 import { Dispatch } from '@reduxjs/toolkit';
 import { ColumnsType, TableProps } from 'antd/es/table';
 import { getAllOrder } from '../../../redux/Reducer/OrderSlice';
@@ -35,14 +31,13 @@ interface DataType {
 
 const ordersPage = () => {
     const dispatch: Dispatch<any> = useDispatch()
-    const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(getAllOrder());
+        dispatch(getAllOrder(""));
     }, [dispatch]);
 
     useEffect(() => {
-        dispatch(getAllOrder());
+        dispatch(getAllOrder(""));
     }, []);
 
     const orders = useAppSelector((state) => state.Order.orders);
@@ -92,7 +87,7 @@ const ordersPage = () => {
                     return yearA - yearB;
                 }
             },
-            render: (text, record) => {
+            render: (  record) => {
                 const date = new Date(record.date);
                 const day = date.getDate();
                 const month = date.getMonth() + 1; // Months are zero-based

@@ -1,4 +1,4 @@
-import { Space, Table, Button, message, Popconfirm, Breadcrumb, Spin } from 'antd';
+import { Space, Table, Button, message, Popconfirm,  Spin } from 'antd';
 import {
     EditFilled,
     DeleteFilled,
@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { getAllCategory, removeCategory } from '../../../redux/Reducer/CategorySlice';
-import ICategory from '../../../interface/category';
 import { ColumnsType, TableProps } from 'antd/es/table';
 
 interface DataType {

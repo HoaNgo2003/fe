@@ -3,7 +3,7 @@ import IChuyenMuc from "./chuyenMuc";
 interface IProduct {
     createdAt: any;
     _id?: string;
-    name: string;
+    nameProduct: string;
     price: number;
     author: string;
     description: string;

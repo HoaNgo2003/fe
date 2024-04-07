@@ -1,10 +1,10 @@
 import Table, { ColumnsType } from "antd/es/table";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "../../../compoment/header";
 import Footer from "../../../compoment/footer";
 import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect  } from "react";
 import { getAllOrder } from "../../../redux/Reducer/OrderSlice";
 import { useAppSelector } from "../../../redux/hook";
 
@@ -17,8 +17,6 @@ interface DataType {
 }
 const MyOrder = () => {
     const dispatch: Dispatch<any> = useDispatch()
-    const navigate = useNavigate();
-    // const [user, setUser] = useState(null)
 
     const user = JSON.parse(localStorage.getItem("user")!)
     const ordersData = useAppSelector((state) => state.Order.orders);
@@ -26,10 +24,10 @@ const MyOrder = () => {
     const orders = ordersData.filter((order: any) => order.userId === user._id);
 
     useEffect(() => {
-        dispatch(getAllOrder());
+        dispatch(getAllOrder(""));
     }, [dispatch]);
     useEffect(() => {
-        dispatch(getAllOrder());
+        dispatch(getAllOrder(""));
     }, []);
 
     const columns: ColumnsType<DataType> = [

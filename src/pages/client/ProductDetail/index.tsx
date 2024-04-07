@@ -7,10 +7,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import IProduct from "../../../interface/product";
 import ICart from "../../../interface/cart";
 import { createCart } from "../../../redux/Reducer/CartSlice";
-import { FacebookShareButton, FacebookIcon } from 'react-share';
+import { FacebookShareButton } from 'react-share';
 
 import { message } from "antd";
-import Item from "antd/es/list/Item";
 
 const productDetail = () => {
     const dispatch = useAppDispatch();
@@ -23,7 +22,7 @@ const productDetail = () => {
     const [quantity, setQuantity] = useState(1)
     useEffect(() => {
         // setIsLoading(true);
-        dispatch(getAllProduct())
+        dispatch(getAllProduct(""))
         const userStore = JSON.parse(localStorage.getItem("user")!)
         if (userStore) {
             setUser(userStore)
@@ -31,7 +30,7 @@ const productDetail = () => {
     }, []);
     useEffect(() => {
         // setIsLoading(true);
-        dispatch(getAllProduct())
+        dispatch(getAllProduct(""))
         const userStore = JSON.parse(localStorage.getItem("user")!)
         if (userStore) {
             setUser(userStore)
@@ -51,13 +50,22 @@ const productDetail = () => {
         }
     }
     // if (product) {
-    const cart: ICart = {
-        userId: user?._id,
-        productId: product._id,
-        quantity: quantity,
-        price: product.price,
-        totalMoney: product.price * quantity
-    }
+        const cart: ICart = {
+            // _id: user?._id ?? '', // Use nullish coalescing to handle undefined user ID
+            productId: product?._id ?? '', // Use nullish coalescing to handle undefined product ID
+            quantity: quantity,
+            price: product?.price ?? 0, // Use nullish coalescing to handle undefined product price
+            totalMoney: (product?.price ?? 0) * quantity // Use nullish coalescing to handle undefined product price
+        };
+        
+        
+    // const cart: ICart = {
+    //     userId: user?._id,
+    //     productId: product?._id,
+    //     quantity: quantity,
+    //     price: product?.price,
+    //     totalMoney: product.price * quantity
+    // }
 
     // }
     const addCart = (cart: ICart) => {
@@ -127,7 +135,7 @@ const productDetail = () => {
                                         <div className="col-md-6">
                                             <div className="iq-card-transparent iq-card-block iq-card-stretch iq-card-height">
                                                 <div className="iq-card-body p-0">
-                                                    <h3 className="mb-3">{product?.name}</h3>
+                                                    <h3 className="mb-3">{product?.nameProduct}</h3>
                                                     <div className="price d-flex align-items-center font-weight-500 mb-2">
                                                         {/* <span className="font-size-20 pr-2 old-price">{product?.price}</span> */}
                                                         <span className="font-size-24 text-dark">{product?.price}</span>
@@ -179,8 +187,7 @@ const productDetail = () => {
                                                         <li>
                                                                 <FacebookShareButton
                                                                     url={product?.images[0]}
-                                                                    quote={'# Truyện hay'}
-                                                                    hashtag={product?.name}
+                                                                    hashtag={product?.nameProduct}
                                                                 > 
                                                                 <Link to="#" className="avatar-40 rounded-circle bg-primary mr-2 facebook"><i className="fa fa-facebook" aria-hidden="true"></i></Link>
 
@@ -223,14 +230,14 @@ const productDetail = () => {
                                                     <div className="row align-items-center">
                                                         <div className="col-5">
                                                             <div className="position-relative image-overlap-shadow">
-                                                                <Link to={`/products/${item._id}`}><img className="img-fluid rounded w-100" src={item.images} alt="" /></Link>
+                                                                <Link to={`/products/${item._id}`}><img className="img-fluid rounded w-100" src={item.images[0]} alt="" /></Link>
                                                                 <div className="view-book">
                                                                     <Link to={`/products/${item._id}`} className="btn btn-sm btn-white">Xem thêm</Link>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div className="col-7 pl-0">
-                                                            <h6 className="mb-2">{item.name}</h6>
+                                                            <h6 className="mb-2">{item.nameProduct}</h6>
                                                             <p className="text-body">Tác giả : {item.author}</p>
                                                             <Link to={`/products/${item._id}`} className="text-dark" >Đọc ngay<i className="ri-arrow-right-s-line"></i></Link>
                                                         </div>

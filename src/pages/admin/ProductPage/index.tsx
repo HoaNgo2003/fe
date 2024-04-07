@@ -39,7 +39,7 @@ const productPage = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        void dispatch(getAllProduct()).then(() => {
+        void dispatch(getAllProduct("")).then(() => {
             setIsLoading(false);
         }).catch((error) => {
             setIsLoading(false);

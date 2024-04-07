@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import Footer from "../../../compoment/footer";
 import Header from "../../../compoment/header";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getAllCart, removeCart, updateCart } from "../../../redux/Reducer/CartSlice";
-import { getAllProduct, removeProduct } from "../../../redux/Reducer/ProductSlice";
+import { getAllProduct } from "../../../redux/Reducer/ProductSlice";
 import IProduct from "../../../interface/product";
 import { message } from "antd";
 import { Link } from "react-router-dom";
@@ -18,7 +18,6 @@ const cart = () => {
 
     // const navigate = useNavigate();
 
-    const [messageApi, contextHolder] = message.useMessage();
 
     const carts = useAppSelector((state) => state.Cart.carts);
     // console.log(Allcarts);
@@ -34,12 +33,12 @@ const cart = () => {
     // const [quantity, setQuantity] = useState(1)
     useEffect(() => {
         dispatch(getAllCart(user._id))
-        dispatch(getAllProduct())
+        dispatch(getAllProduct(""))
     }, [])
     useEffect(() => {
         // setIsLoading(true);
         dispatch(getAllCart(user._id))
-        dispatch(getAllProduct())
+        dispatch(getAllProduct(""))
         // const userStore = JSON.parse(localStorage.getItem("user")!)
         // if (userStore) {
         //     setUser(userStore)
@@ -95,12 +94,12 @@ const cart = () => {
                                                             <div className="row align-items-center">
                                                                 <div className="col-sm-2">
                                                                     <span className="checkout-product-img">
-                                                                        <a href="javascript:void();"><img className="img-fluid rounded" src={product?.images} alt="" /></a>
+                                                                        <a href="javascript:void();"><img className="img-fluid rounded" src={product?.images[0]} alt="" /></a>
                                                                     </span>
                                                                 </div>
                                                                 <div className="col-sm-4">
                                                                     <div className="checkout-product-details">
-                                                                        <h5>{product?.name}</h5>
+                                                                        <h5>{product?.nameProduct}</h5>
                                                                         <p className="text-success">Còn hàng</p>
                                                                         <div className="price">
                                                                             <h5>{product?.price} ₫</h5>
@@ -112,9 +111,9 @@ const cart = () => {
                                                                         <div className="col-sm-10">
                                                                             <div className="row align-items-center mt-2">
                                                                                 <div className="col-sm-7 col-md-6">
-                                                                                    <button type="button" onClick={() => handleQuantityChange(item._id, item.productId, item?.quantity - 1, (item?.quantity - 1) * item?.price, item.price)} className="fa fa-minus qty-btn" id="btn-minus"></button>
+                                                                                    <button type="button" onClick={() => handleQuantityChange(item._id ? item._id : "", item.productId, item?.quantity - 1, (item?.quantity - 1) * item?.price, item.price)} className="fa fa-minus qty-btn" id="btn-minus"></button>
                                                                                     <input type="text" id="quantity" value={item.quantity} />
-                                                                                    <button type="button" onClick={() => handleQuantityChange(item._id, item.productId, item?.quantity + 1, (item?.quantity + 1) * item?.price, item.price)} className="fa fa-plus qty-btn" id="btn-plus"></button>
+                                                                                    <button type="button" onClick={() => handleQuantityChange(item._id ? item._id : "", item.productId, item?.quantity + 1, (item?.quantity + 1) * item?.price, item.price)} className="fa fa-plus qty-btn" id="btn-plus"></button>
                                                                                 </div>
                                                                                 <div className="col-sm-5 col-md-6">
                                                                                     <span className="product-price">{item.totalMoney}</span>
@@ -122,7 +121,7 @@ const cart = () => {
                                                                             </div>
                                                                         </div>
                                                                         <div className="col-sm-2">
-                                                                            <button type="button" onClick={() => confirm(item._id)} className="text-dark font-size-20 border-none"><i className="ri-delete-bin-7-fill"></i></button>
+                                                                            <button type="button" onClick={() => confirm(item._id ? item._id : "")}  className="text-dark font-size-20 border-none"><i className="ri-delete-bin-7-fill"></i></button>
                                                                         </div>
                                                                     </div>
                                                                 </div>

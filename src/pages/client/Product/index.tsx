@@ -161,14 +161,13 @@
 
 // export default Product
 
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Footer from "../../../compoment/footer"
 import Header from "../../../compoment/header"
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getAllProduct } from "../../../redux/Reducer/ProductSlice";
 import { Link } from "react-router-dom";
 import { getAllCategory } from "../../../redux/Reducer/CategorySlice";
-import Item from "antd/es/list/Item.js";
 const Product = () => {
     const [input, setInput] = useState("");
     const dispatch = useAppDispatch();
@@ -178,23 +177,23 @@ const Product = () => {
     const categories = useAppSelector((state)=>state.Category.categories);
     useEffect(() => {
         // setIsLoading(true);
-        dispatch(getAllProduct())
+        dispatch(getAllProduct(""))
     }, [dispatch]);
     useEffect(()=>{
         dispatch(getAllCategory())
     },[dispatch]);
     useEffect(() => {
         // setIsLoading(true);
-        dispatch(getAllProduct())
+        dispatch(getAllProduct(""))
     }, []);
-    const handleClick = (value)=>{
+    const handleClick = (value: SetStateAction<string>)=>{
        setInput(value);
        setValue(value);
     
     }
     
     
-    const handleDanhMuc = (value)=>{
+    const handleDanhMuc = (value: string)=>{
         console.log(value);
         if(value=="Tất cả") {
             setResult(products);
@@ -203,10 +202,10 @@ const Product = () => {
         const result = categories.filter(item=>{
             return item.name==value;
         });
-        // console.log(result[0]);
+        console.log(result[0]);
         const result1 = products.filter(item=>{
             console.log(item.categoryId?._id);
-            return item.categoryId._id== result[0]._id;
+            return item.categoryId?._id== result[0]._id;
         })
        setResult(result1);
         
@@ -214,7 +213,7 @@ const Product = () => {
     const handleButton = ()=>{
         if(value!=""){
             const result1 = products.filter(item => {
-             return value && item && item.name && item.name.toLowerCase().includes(value.toLowerCase())
+             return value && item && item.nameProduct && item.nameProduct.toLowerCase().includes(value.toLowerCase())
             });
             setResult(result1);
         }
@@ -239,7 +238,7 @@ const Product = () => {
                                                 <div className="iq-dropdown">
                                                     <div className="form-group mb-0">
                                                         <select className="form-control form-search-control bg-white border-0" id="exampleFormControlSelect1">
-                                                            <option selected="">All</option>
+                                                            <option >All</option>
                                                             <option>A Books</option>
                                                             <option>the Sun</option>
                                                             <option>Harsh book</option>
@@ -253,7 +252,7 @@ const Product = () => {
                                                 <div className="iq-dropdown">
                                                     <div className="form-group mb-0">
                                                         <select className="form-control form-search-control bg-white border-0" id="exampleFormControlSelect2">
-                                                            <option selected="">Genres</option>
+                                                            <option >Genres</option>
                                                             <option>General</option>
                                                             <option>History</option>
                                                             <option>Horror</option>
@@ -268,7 +267,7 @@ const Product = () => {
                                                 <div className="iq-dropdown">
                                                     <div className="form-group mb-0">
                                                         <select className="form-control form-search-control bg-white border-0" id="exampleFormControlSelect3">
-                                                            <option selected="">Year</option>
+                                                            <option >Year</option>
                                                             <option>2015</option>
                                                             <option>2016</option>
                                                             <option>2017</option>
@@ -283,7 +282,7 @@ const Product = () => {
                                                 <div className="iq-dropdown">
                                                     <div className="form-group mb-0">
                                                     <select onChange={(e)=>handleDanhMuc(e.target.value)}className="form-control form-search-control bg-white border-0" id="exampleFormControlSelect4">
-                                                    <option  selected="" >Tất cả</option>
+                                                    <option  >Tất cả</option>
                                                         {categories?.map(item=>{
                                                             
                                                             return <>
@@ -320,14 +319,14 @@ const Product = () => {
                                                         <div className="iq-card-body p-0">
                                                             <div className="d-flex align-items-center">
                                                                 <div className="col-6 p-0 position-relative image-overlap-shadow">
-                                                                    <Link to={`/products/${item._id}`}><img className="img-fluid rounded w-100" src={item?.images} alt="" /></Link>
+                                                                    <Link to={`/products/${item._id}`}><img className="img-fluid rounded w-100" src={item?.images[0]} alt="" /></Link>
                                                                     <div className="view-book">
                                                                         <Link to={`/products/${item._id}`} className="btn btn-sm btn-white">View Book</Link>
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-6">
                                                                     <div className="mb-2">
-                                                                        <h6 className="mb-1">{item.name}</h6>
+                                                                        <h6 className="mb-1">{item.nameProduct}</h6>
                                                                         <p className="font-size-13 line-height mb-1">{item.author}</p>
                                                                         <div className="d-block">
                                                                             <span className="font-size-13 text-warning">

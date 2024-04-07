@@ -1,17 +1,15 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link,  useParams } from "react-router-dom";
 import Footer from "../../../compoment/footer"
 import Header from "../../../compoment/header"
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import IOrder from "../../../interface/order";
-import { useEffect, useState } from "react";
-import { getAllOrder, getOrder } from "../../../redux/Reducer/OrderSlice";
+import { JSXElementConstructor, ReactElement, ReactNode, ReactPortal, useEffect, useState } from "react";
+import {   getOrder } from "../../../redux/Reducer/OrderSlice";
 import { getAllProduct } from "../../../redux/Reducer/ProductSlice";
 import IProduct from "../../../interface/product";
 
 const BillConfirm = () => {
     const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const [user, setUser] = useState()
+    const [, setUser] = useState("")
 
 
     const { id } = useParams();
@@ -22,8 +20,8 @@ const BillConfirm = () => {
 
     useEffect(() => {
         // setIsLoading(true);
-        dispatch(getOrder(id))
-        dispatch(getAllProduct())
+        dispatch(getOrder(id+''))
+        dispatch(getAllProduct(""))
         const userStore = JSON.parse(localStorage.getItem("user")!)
         if (userStore) {
             setUser(userStore)
@@ -106,7 +104,7 @@ const BillConfirm = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {order?.orderDetails?.map(item => {
+                                    {order?.orderDetails?.map((item: { productId: string | undefined; price: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; quantity: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; totalMoney: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; })=> {
                                         const product = products.find((product: IProduct) => product._id === item.productId)
                                         return <>
 
@@ -114,11 +112,11 @@ const BillConfirm = () => {
                                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                     <div className="flex w-4/5 items-center">
                                                         <div className="">
-                                                            <img className="w-14 object-cover rounded-full" src={product?.images} alt="" />
+                                                            <img className="w-14 object-cover rounded-full" src={product?.images[0]} alt="" />
                                                         </div>
                                                         <div className="flex flex-col  ml-3 flex-grow">
                                                             <span className="font-bold text-sm">
-                                                                {product?.name}
+                                                                {product?.nameProduct}
                                                             </span>
                                                         </div>
                                                     </div>

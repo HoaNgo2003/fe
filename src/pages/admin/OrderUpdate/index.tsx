@@ -1,5 +1,5 @@
-import React, { Dispatch, useEffect, useState } from 'react';
-import type { FormInstance, UploadProps } from 'antd';
+import React, { Dispatch, useEffect  } from 'react';
+import type { FormInstance  } from 'antd';
 import {
     Button,
     Form,
@@ -7,23 +7,18 @@ import {
     Select,
     Space,
     message,
-    Spin,
+  
     Row,
     Col,
     Breadcrumb,
     Table
 } from 'antd';
-import {
-    UploadOutlined,
-} from "@ant-design/icons";
+ 
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
 import { ColumnsType } from 'antd/es/table';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../redux/hook';
-import { getAllOrder, getOrder, updateOrder } from '../../../redux/Reducer/OrderSlice';
-import IOrder from '../../../interface/order';
-import IProduct from '../../../interface/product';
+import {  getOrder, updateOrder } from '../../../redux/Reducer/OrderSlice';
 import IOrderDetail from '../../../interface/orderDetail';
 import { getAllProduct } from '../../../redux/Reducer/ProductSlice';
 
@@ -72,13 +67,13 @@ const orderUpdate = () => {
     const products = useAppSelector((state) => state.Product.products);
 
     useEffect(() => {
-        dispatch(getAllProduct())
-        dispatch(getOrder(id))
+        dispatch(getAllProduct(""))
+        dispatch(getOrder(id+''))
     }, [dispatch])
 
     useEffect(() => {
-        dispatch(getAllProduct())
-        dispatch(getOrder(id))
+        dispatch(getAllProduct(""))
+        dispatch(getOrder(id+''))
     }, [])
     let orderDetailData: any[] = []
     order?.orderDetails?.map((item: IOrderDetail) => {
@@ -87,7 +82,7 @@ const orderUpdate = () => {
             {
                 _id: product?._id,
                 image: product?.images,
-                nameProduct: product?.name,
+                nameProduct: product?.nameProduct,
                 totalMoney: item.totalMoney,
                 quantity: item.quantity,
                 price: item.price,
@@ -132,7 +127,7 @@ const orderUpdate = () => {
             title: 'Price',
             dataIndex: 'price',
             key: 'price',
-            render: (value: number) => value?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+            render: (value: number) => value+''.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
         },
         {
             title: 'Quanttity',
@@ -291,11 +286,12 @@ const orderUpdate = () => {
                         className='mb-10'
                         summary={(pageData) => {
                             let total = 0;
-                            let totalMoney = 0;
+                            // let totalMoney = 0;
                             pageData.forEach((record) => {
                                 total += record.price * record.quantity;
                             });
-                            totalMoney = total + 40000
+                            // totalMoney = total + 40000
+                            
                             return (
                                 <>
                                     <Table.Summary.Row className='font-bold'>

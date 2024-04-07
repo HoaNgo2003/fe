@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 type Props = { children: React.ReactNode };
 
@@ -10,9 +10,9 @@ import {
     TagOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, Space, theme } from 'antd';
+import {  Layout, Menu   } from 'antd';
 
-const { Header, Content, Footer, Sider } = Layout;
+const {   Content,   Sider } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -49,9 +49,7 @@ const items: MenuItem[] = [
 ];
 
 const AdminLayout = ({ children }: Props) => {
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
+   
 
     return (
         <Layout style={{ minHeight: '100vh' }}>

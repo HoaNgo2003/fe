@@ -18,7 +18,6 @@ const Checkout = () => {
     // const [messageApi, contextHolder] = message.useMessage();
 
     const carts = useAppSelector((state) => state.Cart.carts);
-    const products = useAppSelector((state) => state.Product.products);
 
     const user = JSON.parse(localStorage.getItem("user")!)
 
@@ -36,14 +35,13 @@ const Checkout = () => {
     // const [quantity, setQuantity] = useState(1)
     useEffect(() => {
         // setIsLoading(true);
-        dispatch(getAllCart())
-        dispatch(getAllProduct())
+        dispatch(getAllCart(""))
+        dispatch(getAllProduct(""))
     }, [dispatch]);
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
     } = useForm<IOrder>();
 
     const onSubmit = async (order: IOrder) => {
@@ -144,15 +142,15 @@ const Checkout = () => {
                                                                     <div className="card-lists">
                                                                         <div className="form-group">
                                                                             <div className="custom-control custom-radio">
-                                                                                <input type="radio" id="credit" name="pay_method" value="ATM" className="custom-control-input" {...register("pay_method")} />
+                                                                                <input type="radio" {...register("pay_method")} id="credit" className="custom-control-input" name="pay_method" value="ATM" />
                                                                                 <label className="custom-control-label" htmlFor="credit" > Thẻ Tín dụng / Ghi nợ / ATM</label>
                                                                             </div>
                                                                             <div className="custom-control custom-radio">
-                                                                                <input type="radio" id="netbaking" name="pay_method" value="MOMO/ZALOPAY" className="custom-control-input" {...register("pay_method")} />
+                                                                                <input type="radio" id="netbaking" {...register("pay_method")} name="pay_method" value="MOMO/ZALOPAY" className="custom-control-input"  />
                                                                                 <label className="custom-control-label" htmlFor="netbaking" > Momo/ZaloPay</label>
                                                                             </div>
                                                                             <div className="custom-control custom-radio">
-                                                                                <input type="radio" id="cod" name="pay_method" value="COD" className="custom-control-input" {...register("pay_method")} />
+                                                                                <input type="radio" id="cod"  {...register("pay_method")} name="pay_method" value="COD" className="custom-control-input" />
                                                                                 <label className="custom-control-label" htmlFor="cod" > Thanh toán khi giao hàng </label>
                                                                             </div>
                                                                         </div>

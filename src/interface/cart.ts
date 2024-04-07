@@ -1,4 +1,3 @@
-import IProduct from "./product";
 
 interface ICart {
     _id?: string;

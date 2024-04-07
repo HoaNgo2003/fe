@@ -1,12 +1,12 @@
-import React, { Dispatch, useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Space, Table, Tag, message } from 'antd';
+import { Dispatch, useEffect } from 'react'
+import {   useParams } from 'react-router-dom';
+import {  Table,  message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { useDispatch } from 'react-redux';
 import TextArea from 'antd/es/input/TextArea';
 
 import { getAllOrder, getOrder, updateOrder } from '../../../redux/Reducer/OrderSlice';
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import {  useAppSelector } from '../../../redux/hook';
 import Header from '../../../compoment/header';
 import Footer from '../../../compoment/footer';
 import { getAllProduct } from '../../../redux/Reducer/ProductSlice';
@@ -25,15 +25,15 @@ interface DataType {
 
 const orderDetail = () => {
     const dispatch: Dispatch<any> = useDispatch()
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const { id } = useParams();
+    
 
-
-    const orders = useAppSelector((state) => state.Order.orders);
+    // const orders = useAppSelector((state) => state.Order.orders);
 
     useEffect(() => {
-        dispatch(getAllOrder())
+        dispatch(getAllOrder(""))
     }, [dispatch]);
 
 
@@ -48,20 +48,22 @@ const orderDetail = () => {
         orderDetailData.push(
             {
                 _id: product?._id,
-                images: product?.images,
-                nameProduct: product?.name,
-                totalMoney: item.totalMoney,
+                images: product?.images[0],
+                // totalMoney: item.totalMoney,
                 quantity: item.quantity,
                 price: item.price,
-                status: order?.status,
+                createdAt: undefined,
+                nameProduct: '',
+                author: '',
+                description: ''
             }
         )
     })
 
 
     useEffect(() => {
-        dispatch(getAllProduct())
-        dispatch(getOrder(id))
+        dispatch(getAllProduct(""))
+        dispatch(getOrder(id+""))
     }, [dispatch])
 
     const date = () => {

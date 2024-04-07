@@ -36,7 +36,7 @@ const homePage = () => {
 
     useEffect(() => {
         // setIsLoading(true);
-        dispatch(getAllProduct())
+        dispatch(getAllProduct(""))
         dispatch(getAllChuyenMuc())
 
     }, [dispatch]);
@@ -45,7 +45,7 @@ const homePage = () => {
         // setIsLoading(true);
         dispatch(getAllChuyenMuc())
 
-        dispatch(getAllProduct())
+        dispatch(getAllProduct(""))
 
     }, []);
 
@@ -74,14 +74,14 @@ const homePage = () => {
                                                         <div className="iq-card-body p-0">
                                                             <div className="d-flex align-items-center">
                                                                 <div className="col-6 p-0 position-relative image-overlap-shadow">
-                                                                    <Link to=""><img className="img-fluid rounded w-100" src={product.images} alt="" /></Link >
+                                                                    <Link to=""><img className="img-fluid rounded w-100" src={product.images[0]} alt="" /></Link >
                                                                     <div className="view-book">
                                                                         <Link to={`/products/${product._id}`} className="btn btn-sm btn-white">Mua Ngay</Link>
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-6">
                                                                     <div className="mb-2">
-                                                                        <h6 className="mb-1">{product.name}</h6>
+                                                                        <h6 className="mb-1">{product.nameProduct}</h6>
                                                                         <p className="font-size-13 line-height mb-1">{product.author}</p>
                                                                         <div className="d-block line-height">
                                                                             <span className="font-size-11 text-warning">
@@ -129,11 +129,11 @@ const homePage = () => {
                                                     <div className="d-flex align-items-center">
                                                         <div className="col-5 p-0 position-relative">
                                                             <Link to="#">
-                                                                <img src={item.images} className="img-fluid rounded w-100" alt="" />
+                                                                <img src={item.images[0]} className="img-fluid rounded w-100" alt="" />
                                                             </Link>
                                                         </div>
                                                         <div className="col-7">
-                                                            <h5 className="mb-2">{item.name}</h5>
+                                                            <h5 className="mb-2">{item.nameProduct}</h5>
                                                             <p className="mb-2">Tác giả : {item.author}</p>
                                                     
                                                         
@@ -196,11 +196,11 @@ const homePage = () => {
                                                     <div className="d-flex align-items-center">
                                                         <div className="col-5 p-0 position-relative">
                                                             <Link to="#">
-                                                                <img src={item.images} className="img-fluid rounded w-100" alt="" />
+                                                                <img src={item.images[0]} className="img-fluid rounded w-100" alt="" />
                                                             </Link>
                                                         </div>
                                                         <div className="col-7">
-                                                            <h5 className="mb-2">{item.name}</h5>
+                                                            <h5 className="mb-2">{item.nameProduct}</h5>
                                                             <p className="mb-2">Tác giả : {item.author}</p>
                                                     
                                                         
@@ -237,7 +237,7 @@ const homePage = () => {
                         
                                     <div className="section-about-content">
                                         <div className="content-left">
-                                            <iframe width="100%" height="350" src="https://www.youtube.com/embed/qrvlgbNG89U?si=-Ibf5Udn-tutuANo"  title="Journaling Prompts to Change Your Life" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                            <iframe width="100%" height="350" src="https://www.youtube.com/embed/qrvlgbNG89U?si=-Ibf5Udn-tutuANo"  title="Journaling Prompts to Change Your Life" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                                         </div>
                                         <div className="content-right">
                                         Bộ sách thiết thực này là kết hợp giữa những minh họa trực quan cao độ và chủ đề giáo dục trọng yếu. Tất các cuốn sách trong bộ đều có Phần câu hỏi thảo luận để hỗ trợ phụ huynh khơi gợi và dẫn dắt những cuộc trò chuyện với trẻ về cảm xúc, nỗi lo lắng, thất bại, sự tử tế, bảo vệ thân thể, bình đẳng giới và đa dạng giới, Bộ sách là công cụ 

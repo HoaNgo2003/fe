@@ -1,10 +1,7 @@
 import { Button, Form, Input, message } from "antd";
-import axios from "axios";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../../redux/hook";
 import { handleLogin } from "../../../redux/Reducer/authSlice";
-import { useLocalStorage } from "../../../hook/useLocalStorage";
 
 type FormDataType = {
     email: string;
@@ -15,7 +12,6 @@ const signin = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [user, setUser] = useLocalStorage("user", null);
 
 
     const onFinish = async (data: FormDataType) => {
@@ -26,7 +22,7 @@ const signin = () => {
             const userData = (result.payload as any).user;
             // console.log(userData);
 
-            setUser({ accessToken: result?.payload?.accessToken, ...result?.payload?.user });
+            // setUser({ accessToken: result?.payload?.accessToken, ...result?.payload?.user });
             message.success("Login successfully!");
 
             if (userData.role === 'admin') {
@@ -37,30 +33,8 @@ const signin = () => {
         } catch (error: any) {
             if (error) {
                 // Lỗi phản hồi từ máy chủ
-                const serverErrorMessage = error.response.message; // Điều chỉnh dựa trên cấu trúc phản hồi thực tế từ máy chủ
-                console.log(serverErrorMessage);
+                
 
-                // // Kiểm tra xem lỗi có liên quan đến trường nào
-                // if (serverErrorMessage.includes("Account does not exist. Please check again")) {
-                //     // Nếu lỗi liên quan đến "email", đặt lỗi cho trường "email"
-                //     form.setFields([
-                //         {
-                //             name: 'email',
-                //             errors: [serverErrorMessage],
-                //         },
-                //     ]);
-                // } else if (serverErrorMessage.includes("password")) {
-                //     // Nếu lỗi liên quan đến "password", đặt lỗi cho trường "password"
-                //     form.setFields([
-                //         {
-                //             name: 'password',
-                //             errors: [serverErrorMessage],
-                //         },
-                //     ]);
-                // } else {
-                //     // Nếu lỗi không liên quan đến bất kỳ trường nào, xử lý nó ở đây
-                //     console.log(serverErrorMessage);
-                // }
             } else {
                 // Xử lý lỗi khác (không phải lỗi phản hồi từ máy chủ)
                 console.log(error);

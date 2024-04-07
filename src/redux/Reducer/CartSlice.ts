@@ -29,7 +29,9 @@ export const getAllCart = createAsyncThunk(
 export const createCart = createAsyncThunk(
     "carts/addCarts",
     async (cart: ICart) => {
-        const { data } = await axios.post<{ cart: ICart }>(
+        const { data } = await axios.post<{
+            data: any; cart: ICart 
+}>(
             "http://localhost:8080/api/carts",
             cart
         );
